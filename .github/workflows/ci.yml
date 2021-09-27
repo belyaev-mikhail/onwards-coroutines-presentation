@@ -1,0 +1,38 @@
+name: Pandoc CI
+
+on: push
+
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: mkdir output
+      - uses: docker://pandoc/latex:2.9
+        with:
+          args: >
+            --standalone 
+            -t beamer+smart 
+            --pdf-engine xelatex 
+            --syntax-definition kotlin.xml 
+            --highlight-style highlight.theme 
+            --output presentation.tex 
+            presentation.md
+      - uses: actions/checkout@v2
+        with:
+          repository: mozilla/Fira
+          ref: '4.106'
+          path: fonts
+      - uses: xu-cheng/latex-action@v2
+        with:
+          args: >
+            -xelatex 
+            -latexoption=-file-line-error 
+            -latexoption=-interaction=nonstopmode
+          root_file: presentation.tex
+          post_compile: cp presentation.pdf output/
+          pre_compile: 'mkdir ~/.fonts && cp fonts/ttf/*.ttf ~/.fonts/ && fc-cache -fv'
+      - uses: actions/upload-artifact@master
+        with:
+          name: pdf
+          path: output/presentation.pdf
