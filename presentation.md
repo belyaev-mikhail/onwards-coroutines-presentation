@@ -6,12 +6,11 @@ theme: metropolis
 
 title: 'Kotlin Coroutines: Design and Implementation'
 subtitle:
-  - Jetbrains Research
-  - SPbPU
+  - Kotlin Language Research/SPbPU
 author:
-  - '**Mikhail Belyaev**'
   - Roman Elizarov
   - Marat Akhin
+  - '**Mikhail Belyaev**'
   - Ilmir Usmanov
 date: '\today'
 
@@ -96,24 +95,21 @@ fs.listDirectory(target) { files ->
                 }
                 sendMessage(leader, 'done') { answer ->
                     log(answer)
-                }
-            }
-        }
-    }
-}
+}   }   }   }   }
 ```
 
 # The story so far: promises
 
 - Futures/deferreds/tasks
 - Now you have an object to hold the _unfinished_ result
-- Not really asynchronous: you have to block to get the object
+- Two operations: check for readiness and get
+- Not really async: you have to block to get the object
 
 # The story so far: active/pipelined promises
 
 - Promises with higher-order functions to process asynchronously
-- Essentially a mixture between promises and callbacks
-- Haskell teacher speaking: turn the promise into a **Monad**
+- Essentially, a mixture between promises and callbacks
+- Haskell teacher speaking: just make the promise a **Monad**
 
 ----------------
 
@@ -266,8 +262,8 @@ public async Task<Name> GetPersonInfoFromSite(Uri uri) {
 \scaleCode
 
 ```kotlin
-suspend fun getPersonInfoFromSite(Uri uri): Name {
-    File file = new WebClient()
+suspend fun getPersonInfoFromSite(uri: Uri): Name {
+    val file = new WebClient()
         .downloadToFile(uri, tempFile())
     val html = parseHtmlFile(file)
     val person = findPersonInDocument(html)
@@ -298,15 +294,21 @@ interface Continuation<in T> {
    val context: CoroutineContext
    fun resumeWith(result: Result<T>)
 }
+```
 
+```kotlin
 fun <T> (suspend () -> T).createCoroutineUnintercepted(
     completion: Continuation<T>
 ): Continuation<Unit>
+```
 
+```kotlin
 suspend fun <T> suspendCoroutineUninterceptedOrReturn(
     block: (Continuation<T>) -> Any?
 ): T
+```
 
+```kotlin
 fun <T> (suspend () -> T).startCoroutineUninterceptedOrReturn(
     completion: Continuation<T>
 ): Any?
@@ -399,6 +401,8 @@ return Unit
 // callback-based version
 fun someLongComputation(params: Params,
                         callback: (Value) -> Unit)
+```
+```kotlin
 // suspendable version
 suspend fun someLongComputation(params: Params): Value =
     suspendCoroutine { cont ->
@@ -416,6 +420,8 @@ suspend fun someLongComputation(params: Params): Value =
 ```kotlin
 // promise-based version
 fun someLongComputation(params: Params): CompletableFuture<Value>
+```
+```kotlin
 // suspendable version
 suspend fun someLongComputation(params: Params): Value =
     suspendCoroutine { cont ->

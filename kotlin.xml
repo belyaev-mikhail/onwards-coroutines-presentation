@@ -24,6 +24,7 @@
             <item>abstract</item>
             <item>sealed</item>
             <item>const</item>
+            <item>suspend</item>
 
             <item>get</item>
             <item>set</item>
@@ -244,6 +245,7 @@
                 <DetectChar attribute="Symbol" context="#pop" char=")" />
                 <DetectChar attribute="Symbol" context="TypeName" char=":" />
                 <DetectChar attribute="Symbol" context="TypeParameters" char="&lt;" />
+                <DetectChar attribute="Symbol" context="FunctionType" char="(" />
                 <DetectChar attribute="Symbol" context="Expression" char="=" />
                 <RegExpr attribute="Variable" context="#stay" String="[_\w][_\w\d]*" />
 
@@ -256,6 +258,7 @@
                 <RegExpr attribute="Keyword" context="#stay" String="\b(suspend)\b" />
                 <StringDetect attribute="Symbol" context="#stay" String="-&gt;" />
                 <RegExpr attribute="Data Type" context="#pop" String="[_\w][_\w\d]*[?]?" />
+                <DetectChar attribute="Symbol" context="TypeParameters" char="&lt;" />
 
                 <IncludeRules context="FindComments" />
             </context>
@@ -265,6 +268,7 @@
                 <RegExpr attribute="Data Type" context="#stay" String="[_\w][_\w\d]*[?]?" />
                 <StringDetect attribute="Symbol" context="#stay" String="-&gt;" />
                 <StringDetect attribute="Symbol" context="#stay" String="," />
+                <DetectChar attribute="Symbol" context="TypeParameters" char="&lt;" />
 
                 <IncludeRules context="FindComments" />
             </context>
