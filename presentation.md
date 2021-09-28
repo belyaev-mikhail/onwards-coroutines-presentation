@@ -515,7 +515,7 @@ fun infinitePalindromes(): Sequence<Int> = sequence {
     - Ideal design and ideal implementation still do not exist
 - Code colouring/error handling still vary across implementations
 - New problems arise with new ideas
-- Kotlin a solution that has proven its worth in
+- Kotlin's approach has proven its worth in
     - Code readability
     - Flexibility of interaction with other frameworks
     - A number of user success stories
