@@ -8,12 +8,13 @@ title: 'Kotlin Coroutines: Design and Implementation'
 subtitle:
   - Kotlin Language Research/SPbPU
 author:
+  - '**Mikhail Belyaev**'
   - Roman Elizarov
   - Marat Akhin
-  - '**Mikhail Belyaev**'
   - Ilmir Usmanov
 date: '\today'
 
+aspectratio: 169
 csquotes: true
 colorlinks: true
 urlcolor: SkyBlue
@@ -280,10 +281,10 @@ suspend fun getPersonInfoFromSite(uri: Uri): Name {
 
 Four main components:
 
-- Coroutine context
-- Suspending functions compilation process
-- Low-level coroutine intrinsics manipulate continuations directly
+- Low-level coroutine intrinsics
+- Suspending functions CPS/State machine transform
 - Coroutine interception
+- Coroutine context
 
 # The low-level API
 
