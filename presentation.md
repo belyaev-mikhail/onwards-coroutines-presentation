@@ -232,7 +232,7 @@ func guessWebPageLocale(url string) string {
 # Kotlin coroutines: classification
 
 - `async`/`await` family, but with a twist
-- Asynchronous and stackless
+- Asymmetric and stackless
 - Colourful: red functions cannot be called from blue functions
 - A very small and flexible low-level API
 
