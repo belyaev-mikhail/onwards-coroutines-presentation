@@ -53,7 +53,9 @@ Speaker: Mikhail Belyaev
 <belyaev@kspt.icc.spbstu.ru>
 
 Jetbrains Research
+
 Kotlin Language Research Team
+
 Saint-Petersburg Polytechnic University
 
 # Contacts and technical agenda
@@ -187,12 +189,13 @@ func guessWebPageLocale(url string) string {
 # The story so far: coroutines
 
 - We still have no universally accepted definition!
-- Something along: a function that can suspend and resume it's execution
+- Something along: a function that can suspend and resume its execution
 
 # The story so far: coroutines
 
 - Symmetric vs asymmetric coroutines
     - A **symmetric** coroutine may resume to any other coroutine, not just the caller
+    - An **asymmetric** coroutine strictly resumes to its caller, going up the call stack
 - Symmetric coroutines are more powerful, but hard to reason about
 
 # The story so far: coroutines
@@ -205,7 +208,7 @@ func guessWebPageLocale(url string) string {
 # The story so far: continuations
 
 - A **continuation** is a value representing the whole execution state point that can be manually resumed from that point
-- Go back to CPS in Algol 60 and `call/cc` in Scheme
+- Goes back to CPS in Algol 60 and `call/cc` in Scheme
 - In fact, most modern coroutine implementations use CPS under the hood, so a continuation may be viewed as a low-level implementation mechanism
 
 # Coroutine problems
@@ -277,7 +280,7 @@ suspend fun getPersonInfoFromSite(uri: Uri): Name {
 }
 ```
 
-# Low-level coroutine API
+# Gory implementation details
 
 Four main components:
 
@@ -286,7 +289,7 @@ Four main components:
 - Coroutine interception
 - Coroutine context
 
-# The low-level API
+# The complete low-level API
 
 \scaleCode
 
@@ -386,7 +389,7 @@ return Unit
     - In a separate thread
     - In a scheduled executor
     - etc.
-- Please refer to the paper text for details
+- Please refer to the paper for details
 
 # Design evaluation
 
@@ -477,7 +480,7 @@ suspend fun fibonacci(n: Int, c: SendChannel<Int>) {
 
 # The flexibility goal: generators
 
-Note: generators are usually a completely separate language feature, see JS/TS or Python as examples. In kotlin, however, it is implemented using coroutines without language support.
+Note: generators are usually a completely separate language feature, see JS/TS or Python as examples. In Kotlin, however, it is implemented using coroutines without language support.
 
 \scaleCode
 
@@ -517,3 +520,16 @@ fun infinitePalindromes(): Sequence<Int> = sequence {
     - Flexibility of interaction with other frameworks
     - A number of user success stories
 
+# Contacts and technical agenda (again!)
+
+Language documentation:
+<https://kotlinlang.org/docs>
+
+Specification RFC (WIP!):
+<https://kotlinlang.org/spec>
+
+To contact the authors:
+
+Just mail me at <belyaev@kspt.icc.spbstu.ru>
+
+<https://kotlinlang.slack.com/>
